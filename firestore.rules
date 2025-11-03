@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      // Users can only update their own profile
+      allow create: if request.auth.uid == userId;
+      allow update: if request.auth.uid == userId;
+    }
+    
+    // Casinos collection
+    match /casinos/{casinoId} {
+      allow read: if request.auth != null;
+      // Only admins can create, update, or delete casinos
+      allow write: if isAdmin();
+    }
+    
+    // Referrals collection
+    // Note: Email verification is enforced on the client side
+    // Users must verify their email before the app allows them to create referrals
+    match /referrals/{referralId} {
+      allow read: if request.auth != null;
+      // Users can create their own referrals
+      // The client enforces email verification before allowing this action
+      allow create: if request.auth != null && 
+                       request.resource.data.userId == request.auth.uid;
+      // Only admins can update referrals (for verification/rejection)
+      allow update: if isAdmin();
+      // Prevent deletion of referrals
+      allow delete: if false;
+    }
+  }
+}
+
