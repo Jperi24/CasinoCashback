@@ -1,6 +1,6 @@
 # Quick Setup Guide
 
-Follow these steps to get your Casino Cashback platform up and running:
+Follow these steps to get your Stakeback platform up and running:
 
 ## Step 1: Install Dependencies
 

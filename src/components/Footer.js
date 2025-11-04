@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1">
-            <h3 className="text-2xl font-black mb-3">Casino Cashback</h3>
+            <h3 className="text-2xl font-black mb-3">Stakeback</h3>
             <p className="text-purple-200 text-sm">
               Earn 20% cashback on your casino play. Simple, transparent, and automatic.
             </p>
@@ -70,7 +70,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-purple-700 text-center text-sm text-purple-300">
-          <p>&copy; {new Date().getFullYear()} Casino Cashback. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Stakeback. All rights reserved.</p>
         </div>
       </div>
     </footer>

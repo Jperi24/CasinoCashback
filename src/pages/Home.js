@@ -10,11 +10,11 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-6xl font-bold text-gray-900 mb-6">
-            Get Cashback on Your Casino Play
+            Welcome to Stakeback
           </h1>
           <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-            Sign up using our referral codes and earn 10-40% cashback monthly on your casino losses. 
-            Simple, transparent, and paid in crypto.
+            Get up to 40% cashback monthly on your casino play. 
+            Simple, transparent, and paid directly to your crypto wallet.
           </p>
           
           <div className="flex justify-center space-x-4">

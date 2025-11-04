@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo Casino Cashback Platform - Installation
+echo Stakeback Platform - Installation
 echo ========================================
 echo.
 
@@ -38,6 +38,8 @@ echo 3. Run "npm start" to start the development server
 echo ========================================
 echo.
 pause
+
+
 
 
 

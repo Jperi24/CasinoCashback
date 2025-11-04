@@ -9,16 +9,16 @@ export default function FAQ() {
       category: "Getting Started",
       questions: [
         {
-          q: "How does Casino Cashback work?",
-          a: "Casino Cashback is simple: sign up for participating casinos through our referral links, play as you normally would, and receive 20% cashback on your net losses every month. We track your activity and automatically send payouts to your crypto wallet."
+          q: "How does Stakeback work?",
+          a: "Stakeback is simple: sign up for participating casinos through our referral links, play as you normally would, and receive up to 40% cashback on your net losses every month. We track your activity and automatically send payouts to your crypto wallet."
         },
         {
           q: "How do I get started?",
           a: "Getting started is easy! First, create an account and verify your email. Then, add your crypto wallet for payouts. Finally, visit the 'Join Casino' page to select a casino, sign up using our referral link and code, and submit your casino account details to us."
         },
         {
-          q: "Is there a fee to use Casino Cashback?",
-          a: "No! Casino Cashback is completely free to use. There are no signup fees, monthly charges, or hidden costs. You simply receive 20% of your net losses back every month."
+          q: "Is there a fee to use Stakeback?",
+          a: "No! Stakeback is completely free to use. There are no signup fees, monthly charges, or hidden costs. You simply receive cashback on your net losses every month."
         }
       ]
     },
@@ -31,7 +31,7 @@ export default function FAQ() {
         },
         {
           q: "How is cashback calculated?",
-          a: "Cashback is calculated based on your net losses for the month. Net losses = total wagered - total winnings. You receive 20% of this amount. For example, if you wagered $1,000 and won $700, your net loss is $300, and you'd receive $60 cashback."
+          a: "Cashback is calculated based on your net losses for the month. Net losses = total wagered - total winnings. You receive a percentage of this amount (varies by casino and region, up to 40%). For example, if you receive 20% and wagered $1,000 and won $700, your net loss is $300, and you'd receive $60 cashback."
         },
         {
           q: "What cryptocurrencies do you support?",
@@ -117,7 +117,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-gray-600 text-lg">
-            Find answers to common questions about Casino Cashback
+            Find answers to common questions about Stakeback
           </p>
         </div>
 
@@ -193,7 +193,7 @@ export default function FAQ() {
         {/* Bottom CTA */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white text-center mt-12">
           <h2 className="text-3xl font-black mb-3">Ready to Start Earning Cashback?</h2>
-          <p className="text-purple-100 mb-6">Join today and get 20% back on your casino play!</p>
+          <p className="text-purple-100 mb-6">Join Stakeback today and get up to 40% back on your casino play!</p>
           <Link
             to="/signup"
             className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition shadow-lg text-lg"

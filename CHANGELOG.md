@@ -1,4 +1,4 @@
-# Changelog
+# Changelog - Stakeback
 
 ## [1.1.0] - Email Verification Implementation
 
@@ -97,6 +97,8 @@
 - Multi-casino support
 - Beautiful UI with Tailwind CSS
 - Firebase Firestore backend
+
+
 
 
 

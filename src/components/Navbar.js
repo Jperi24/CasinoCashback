@@ -29,7 +29,7 @@ export default function Navbar() {
             </div>
             <div>
               <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                Casino Cashback
+                Stakeback
               </span>
               <p className="text-xs text-purple-200 font-medium">Earn while you play</p>
             </div>

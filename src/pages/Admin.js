@@ -181,7 +181,7 @@ export default function Admin() {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `casino-cashback-emails-${filterType}-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `stakeback-emails-${filterType}-${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     window.URL.revokeObjectURL(url);
 

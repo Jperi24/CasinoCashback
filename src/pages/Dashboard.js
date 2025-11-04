@@ -141,8 +141,8 @@ export default function Dashboard() {
             <div className="flex items-center gap-3 mb-6">
               <span className="text-4xl">🎉</span>
               <div>
-                <h2 className="text-3xl font-black">Welcome to Casino Cashback!</h2>
-                <p className="text-purple-100">Let's get you started earning 20% cashback on your casino play</p>
+                <h2 className="text-3xl font-black">Welcome to Stakeback!</h2>
+                <p className="text-purple-100">Let's get you started earning up to 40% cashback on your casino play</p>
               </div>
             </div>
             

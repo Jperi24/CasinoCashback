@@ -1,6 +1,6 @@
-# Casino Cashback Platform
+# Stakeback - Casino Cashback Platform
 
-A web application for managing casino referral cashback programs. Users sign up using casino referral codes and receive monthly crypto cashback on their losses.
+A web application for managing casino referral cashback programs. Users sign up using casino referral codes and receive up to 40% monthly crypto cashback on their losses.
 
 ## Features
 
@@ -23,7 +23,7 @@ A web application for managing casino referral cashback programs. Users sign up 
 ## Project Structure
 
 ```
-casino-cashback/
+stakeback/
 ├── public/
 │   └── index.html
 ├── src/
@@ -178,7 +178,7 @@ The app will open at [http://localhost:3000](http://localhost:3000)
 3. **Submit Referral**: Select a casino, enter your casino username, and submit
 4. **Add Crypto Address**: Enter your wallet address for payouts
 5. **Wait for Verification**: Admin will verify your referral
-6. **Receive Cashback**: Get 20% monthly cashback on your losses
+6. **Receive Cashback**: Get up to 40% monthly cashback on your losses
 
 ### For Admins
 
@@ -189,9 +189,9 @@ The app will open at [http://localhost:3000](http://localhost:3000)
 
 ## Cashback Structure
 
-- **Total Cashback**: 40% on user losses
-- **User Receives**: 20%
-- **Platform Keeps**: 20%
+- **Total Cashback**: Up to 40% on user losses (varies by casino and region)
+- **User Receives**: 10-40%
+- **Platform Keeps**: Remaining commission
 - **Payment Frequency**: Monthly
 - **Payment Method**: Crypto (manual transfers)
 
