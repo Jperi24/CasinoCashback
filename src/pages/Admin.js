@@ -23,15 +23,16 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('referrals'); // referrals, casinos, emails
+  const [activeTab, setActiveTab] = useState('referrals'); // referrals, casinos, emails, tickets
   const [users, setUsers] = useState([]);
+  const [supportTickets, setSupportTickets] = useState([]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    await Promise.all([fetchCasinos(), fetchReferrals(), fetchUsers()]);
+    await Promise.all([fetchCasinos(), fetchReferrals(), fetchUsers(), fetchSupportTickets()]);
   };
 
   const fetchUsers = async () => {
@@ -45,6 +46,20 @@ export default function Admin() {
       setUsers(usersList);
     } catch (error) {
       console.error('Error fetching users:', error);
+    }
+  };
+
+  const fetchSupportTickets = async () => {
+    try {
+      const ticketsQuery = query(collection(db, 'supportTickets'), orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(ticketsQuery);
+      const ticketsList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setSupportTickets(ticketsList);
+    } catch (error) {
+      console.error('Error fetching support tickets:', error);
     }
   };
 
@@ -240,6 +255,16 @@ export default function Admin() {
               }`}
             >
               📧 Email Management
+            </button>
+            <button
+              onClick={() => setActiveTab('tickets')}
+              className={`px-6 py-3 font-medium ${
+                activeTab === 'tickets'
+                  ? 'border-b-2 border-purple-600 text-purple-600'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              🎫 Support Tickets
             </button>
           </div>
         </div>
@@ -696,6 +721,138 @@ export default function Admin() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Support Tickets Tab */}
+        {activeTab === 'tickets' && (
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">Support Tickets</h2>
+              <div className="text-sm text-gray-600">
+                {supportTickets.filter(t => t.status === 'open').length} open tickets
+              </div>
+            </div>
+
+            {supportTickets.length === 0 ? (
+              <p className="text-gray-500 italic">No support tickets yet.</p>
+            ) : (
+              <div className="space-y-4">
+                {supportTickets.map(ticket => (
+                  <div key={ticket.id} className="border-2 border-gray-200 rounded-xl p-6 hover:border-purple-300 transition">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="font-bold text-lg text-gray-900">{ticket.subject}</h3>
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                            ticket.status === 'open' 
+                              ? 'bg-yellow-100 text-yellow-800' 
+                              : ticket.status === 'resolved'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {ticket.status === 'open' ? '🟡 Open' : ticket.status === 'resolved' ? '✅ Resolved' : ticket.status}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-600 space-y-1">
+                          <p><strong>From:</strong> {ticket.userName} ({ticket.userEmail})</p>
+                          <p><strong>User ID:</strong> {ticket.userId}</p>
+                          <p><strong>Created:</strong> {new Date(ticket.createdAt).toLocaleString()}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                      <p className="text-gray-700 whitespace-pre-wrap">{ticket.message}</p>
+                    </div>
+
+                    {ticket.adminResponse && (
+                      <div className="bg-purple-50 border-l-4 border-purple-600 rounded p-4 mb-4">
+                        <p className="text-sm font-bold text-purple-900 mb-2">Admin Response:</p>
+                        <p className="text-gray-700 whitespace-pre-wrap">{ticket.adminResponse}</p>
+                      </div>
+                    )}
+
+                    <div className="flex gap-2">
+                      {ticket.status === 'open' && (
+                        <>
+                          <button
+                            onClick={async () => {
+                              const response = prompt('Enter your response to this ticket:');
+                              if (response) {
+                                try {
+                                  await updateDoc(doc(db, 'supportTickets', ticket.id), {
+                                    adminResponse: response,
+                                    status: 'resolved',
+                                    resolvedAt: new Date().toISOString(),
+                                    updatedAt: new Date().toISOString()
+                                  });
+                                  setSuccess('Ticket resolved successfully!');
+                                  fetchSupportTickets();
+                                  setTimeout(() => setSuccess(''), 3000);
+                                } catch (err) {
+                                  setError('Failed to resolve ticket');
+                                  setTimeout(() => setError(''), 3000);
+                                }
+                              }
+                            }}
+                            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition"
+                          >
+                            ✅ Respond & Resolve
+                          </button>
+                          <button
+                            onClick={async () => {
+                              if (window.confirm('Mark this ticket as resolved without response?')) {
+                                try {
+                                  await updateDoc(doc(db, 'supportTickets', ticket.id), {
+                                    status: 'resolved',
+                                    resolvedAt: new Date().toISOString(),
+                                    updatedAt: new Date().toISOString()
+                                  });
+                                  setSuccess('Ticket marked as resolved!');
+                                  fetchSupportTickets();
+                                  setTimeout(() => setSuccess(''), 3000);
+                                } catch (err) {
+                                  setError('Failed to update ticket');
+                                  setTimeout(() => setError(''), 3000);
+                                }
+                              }
+                            }}
+                            className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg transition"
+                          >
+                            Mark Resolved
+                          </button>
+                        </>
+                      )}
+                      {ticket.status === 'resolved' && (
+                        <button
+                          onClick={async () => {
+                            if (window.confirm('Reopen this ticket?')) {
+                              try {
+                                await updateDoc(doc(db, 'supportTickets', ticket.id), {
+                                  status: 'open',
+                                  resolvedAt: null,
+                                  updatedAt: new Date().toISOString()
+                                });
+                                setSuccess('Ticket reopened!');
+                                fetchSupportTickets();
+                                setTimeout(() => setSuccess(''), 3000);
+                              } catch (err) {
+                                setError('Failed to reopen ticket');
+                                setTimeout(() => setError(''), 3000);
+                              }
+                            }
+                          }}
+                          className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-lg transition"
+                        >
+                          🔄 Reopen Ticket
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

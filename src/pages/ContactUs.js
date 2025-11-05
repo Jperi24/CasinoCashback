@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function ContactUs() {
   const { currentUser, userProfile } = useAuth();
@@ -14,6 +16,11 @@ export default function ContactUs() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if (!currentUser) {
+      setError('Please log in to submit a support ticket');
+      return;
+    }
+
     if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
       setError('Please fill out all fields');
       return;
@@ -24,25 +31,31 @@ export default function ContactUs() {
     setSuccess('');
 
     try {
-      // Create mailto link as fallback
-      const mailtoLink = `mailto:support@casinocashback.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-      )}`;
+      // Create support ticket in Firestore
+      await addDoc(collection(db, 'supportTickets'), {
+        userId: currentUser.uid,
+        userName: name.trim(),
+        userEmail: email.trim(),
+        subject: subject.trim(),
+        message: message.trim(),
+        status: 'open',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        adminResponse: null,
+        resolvedAt: null
+      });
       
-      // Open email client
-      window.location.href = mailtoLink;
-      
-      setSuccess('Opening your email client... If it doesn\'t open automatically, please email us at support@casinocashback.com');
+      setSuccess('✅ Support ticket submitted successfully! We\'ll respond within 24-48 hours.');
       
       // Clear form
-      if (!currentUser) {
-        setName('');
-        setEmail('');
-      }
       setSubject('');
       setMessage('');
+      
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      setError('Failed to open email client. Please email us directly at support@casinocashback.com');
+      console.error('Error submitting ticket:', err);
+      setError('Failed to submit support ticket. Please try again or contact us directly.');
     } finally {
       setLoading(false);
     }
@@ -141,15 +154,20 @@ export default function ContactUs() {
             </button>
           </form>
 
+          {!currentUser && (
+            <div className="mt-6 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+              <p className="text-sm text-yellow-800 text-center">
+                <strong>Note:</strong> You must be logged in to submit a support ticket. 
+                <a href="/login" className="text-purple-600 hover:text-purple-700 font-bold ml-1">
+                  Log in here
+                </a>
+              </p>
+            </div>
+          )}
+
           <div className="mt-8 pt-8 border-t-2 border-gray-100">
             <p className="text-center text-gray-600 text-sm">
-              Or email us directly at:{' '}
-              <a
-                href="mailto:support@casinocashback.com"
-                className="text-purple-600 hover:text-purple-700 font-bold"
-              >
-                support@casinocashback.com
-              </a>
+              Your support ticket will be tracked in our system and we'll respond within 24-48 hours.
             </p>
           </div>
         </div>
@@ -157,9 +175,9 @@ export default function ContactUs() {
         {/* Quick Contact Info */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-4xl mb-3">📧</div>
-            <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-            <p className="text-sm text-gray-600">support@casinocashback.com</p>
+            <div className="text-4xl mb-3">🎫</div>
+            <h3 className="font-bold text-gray-900 mb-2">Support Tickets</h3>
+            <p className="text-sm text-gray-600">Tracked & organized</p>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
@@ -171,7 +189,7 @@ export default function ContactUs() {
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
             <div className="text-4xl mb-3">💬</div>
             <h3 className="font-bold text-gray-900 mb-2">Support Hours</h3>
-            <p className="text-sm text-gray-600">24/7 Email Support</p>
+            <p className="text-sm text-gray-600">24/7 Ticket System</p>
           </div>
         </div>
       </div>
