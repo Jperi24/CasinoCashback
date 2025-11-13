@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import SEO from '../components/SEO';
 
 export default function ContactUs() {
   const { currentUser, userProfile } = useAuth();
@@ -61,9 +62,32 @@ export default function ContactUs() {
     }
   };
 
+  const contactStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "StakeBack",
+      "url": "https://stakeback.xyz",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "url": "https://stakeback.xyz/contact"
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <SEO
+        title="Contact Us - Get Support | StakeBack Customer Service"
+        description="Need help with your StakeBack casino cashback account? Contact our support team for assistance with payouts, account setup, casino questions, or any other inquiries."
+        keywords="stakeback support, casino cashback help, contact support, customer service, stakeback contact"
+        canonicalUrl="https://stakeback.xyz/contact"
+        structuredData={contactStructuredData}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h1 className="text-5xl font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent mb-4">
             Contact Us
@@ -194,6 +218,7 @@ export default function ContactUs() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

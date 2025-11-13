@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -109,8 +110,32 @@ export default function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Create structured data for FAQ
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.flatMap(category =>
+      category.questions.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    )
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-12">
+    <>
+      <SEO
+        title="FAQ - Frequently Asked Questions | StakeBack Casino Cashback"
+        description="Get answers to common questions about StakeBack casino cashback program. Learn how to earn up to 40% monthly crypto rewards, payout schedules, supported cryptocurrencies, and more."
+        keywords="casino cashback faq, stakeback help, casino rewards questions, crypto cashback help, casino bonus questions, how does casino cashback work"
+        canonicalUrl="https://stakeback.xyz/faq"
+        structuredData={faqStructuredData}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h1 className="text-5xl font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent mb-4">
@@ -203,6 +228,7 @@ export default function FAQ() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

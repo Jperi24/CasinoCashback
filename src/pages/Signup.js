@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import SEO from '../components/SEO';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -42,8 +43,15 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
+    <>
+      <SEO
+        title="Sign Up - Join StakeBack | Start Earning Casino Cashback"
+        description="Create your free StakeBack account and start earning up to 40% monthly cashback on your casino play. No fees, instant setup. Join thousands earning crypto rewards today!"
+        keywords="casino cashback signup, join stakeback, register casino rewards, crypto casino account, sign up casino bonus"
+        canonicalUrl="https://stakeback.xyz/signup"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           Create Account
         </h2>
@@ -166,6 +174,7 @@ export default function Signup() {
         </p>
       </div>
     </div>
+    </>
   );
 }
 

@@ -1,22 +1,29 @@
 {
-  "short_name": "Stakeback",
-  "name": "Stakeback - Casino Cashback in Crypto",
-  "description": "Get up to 40% cashback on your casino play. Earn crypto rewards monthly.",
+  "short_name": "StakeBack",
+  "name": "StakeBack - Casino Cashback in Crypto",
+  "description": "Get up to 40% monthly cashback on your casino play. Earn crypto rewards with StakeBack.",
   "icons": [
     {
       "src": "favicon.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "apple-touch-icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#9333ea",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "categories": ["finance", "entertainment"],
+  "lang": "en-US",
+  "dir": "ltr"
 }
 

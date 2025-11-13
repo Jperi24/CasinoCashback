@@ -1,0 +1,30 @@
+# robots.txt for StakeBack - Casino Cashback Platform
+# https://stakeback.xyz
+
+User-agent: *
+Allow: /
+Allow: /signup
+Allow: /login
+Allow: /faq
+Allow: /contact
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /join-casino
+Disallow: /forgot-password
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://stakeback.xyz/sitemap.xml
+
+# Block specific bots if needed (currently allowing all)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+

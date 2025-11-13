@@ -1,12 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const { currentUser } = useAuth();
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "StakeBack - Casino Cashback Platform",
+    "description": "Earn up to 40% monthly cashback on your casino play with StakeBack",
+    "url": "https://stakeback.xyz/",
+    "mainEntity": {
+      "@type": "Product",
+      "name": "Casino Cashback Program",
+      "description": "Get up to 40% cashback monthly on your casino play, paid directly to your crypto wallet",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free to join, no hidden fees"
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
+    <>
+      <SEO
+        title="StakeBack - Get Up to 40% Casino Cashback in Crypto | Monthly Rewards"
+        description="Earn up to 40% monthly cashback on your casino play with StakeBack. Simple, transparent crypto rewards paid directly to your wallet. No fees, no hassle. Join now and start earning!"
+        keywords="casino cashback, crypto cashback, stake cashback, online casino rewards, casino bonuses, cryptocurrency casino, bitcoin casino cashback, monthly casino rewards, casino referral bonus, crypto gambling rewards"
+        canonicalUrl="https://stakeback.xyz/"
+        structuredData={structuredData}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-6xl font-bold text-gray-900 mb-6">
@@ -133,6 +161,7 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -14,6 +14,7 @@ import EmailVerificationBanner from '../components/EmailVerificationBanner';
 import CryptoWalletManager from '../components/CryptoWalletManager';
 import EmailPreferences from '../components/EmailPreferences';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 export default function Dashboard() {
   const { currentUser, userProfile } = useAuth();
@@ -112,9 +113,16 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 animate-fade-in">
+    <>
+      <SEO
+        title="Dashboard - Manage Your Casino Cashback | StakeBack"
+        description="View and manage your casino cashback accounts, track monthly rewards, and update your crypto wallet information on your StakeBack dashboard."
+        canonicalUrl="https://stakeback.xyz/dashboard"
+        noIndex={true}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 animate-fade-in">
           <h1 className="text-5xl font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent mb-2">
             Welcome back, {userProfile?.displayName}! 👋
           </h1>
@@ -434,5 +442,6 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

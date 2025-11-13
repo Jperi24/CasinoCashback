@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import SEO from '../components/SEO';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -27,7 +28,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center px-4">
+    <>
+      <SEO
+        title="Login - Access Your StakeBack Dashboard | Casino Cashback"
+        description="Login to your StakeBack account to track your casino cashback, manage crypto wallets, and view monthly rewards. Secure access to your casino rewards dashboard."
+        keywords="stakeback login, casino cashback login, access dashboard, casino rewards account"
+        canonicalUrl="https://stakeback.xyz/login"
+        noIndex={true}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 border border-purple-100 animate-fade-in">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full mb-4">
@@ -127,6 +136,7 @@ export default function Login() {
         </p>
       </div>
     </div>
+    </>
   );
 }
 
